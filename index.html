@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Doodle+Shadow&family=Rubik+Glitch+Pop&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <title>Let's Paint</title>
 </head>
 <body>
@@ -17,17 +18,17 @@
         </div>
         <div class="main">
             <div class="control">
-                <input type="color" id="color-picker">
-                <button>Toggle Eraser</button>
-                <button>Toggle Rainbow</button>
-                <button>Toggle Shading</button>
-                <button>Toggle Lighten</button>
-                <button>Colour Grabber</button>
-                <button>Toggle Grid Lines</button>
-                <button>Clear</button>
+                <input type="color" id="colorPicker">
+                <button id="toggleEraser">Toggle Eraser</button>
+                <button id="toggleRainbow">Toggle Rainbow</button>
+                <button id="toggleShading">Toggle Shading</button>
+                <button id="toggleLighten">Toggle Lighten</button>
+                <button id="toggleGrapper">Colour Grabber</button>
+                <button id="toggleLines">Toggle Grid Lines</button>
+                <button id="clear">Clear</button>
             </div>
             <div class="canvas-wrapper">
-                <div class="canvas">
+                <div id="canvas">
 
                 </div>
             </div>
