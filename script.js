@@ -7,7 +7,10 @@ const buttonLighten = document.querySelector("#toggleLighten");
 const buttonGrabber = document.querySelector("#toggleGrabber");
 const buttonLines = document.querySelector("#toggleLines");
 const buttonClear = document.querySelector("#clear");
+const sizeInput = document.querySelector("#canvas-size");
+const sizeInputText = document.querySelector("#size");
 const canvas = document.querySelector("#canvas");
+
 
 let brushColor="#fff"; //the variable that has the current color
 
@@ -31,6 +34,11 @@ function createCanvas(size){
     divElements = document.querySelectorAll("#grid");
 }
 
+function emptyCanvas(){
+        divElements.forEach(e=>{
+            e.remove();
+        })
+}
 //set the background color of element
 //this is the most important function of course
 function setBackgroundColor(element){
@@ -105,28 +113,25 @@ function randomColor() {
     return `hsl(${Math.random() * 360}, 100%, 50%)`;
 }
 
-
-//set the default 
-createCanvas(10);
-divElements.forEach(setBackgroundColor);
-brushColor="#000"
-
 //set event listener for each canvas element
-divElements.forEach(e => {
-    e.addEventListener("mousedown",element => {
-        if(buttonGrabber.getAttribute("class")=="toggleOn"){
-            brushColor=e.style.backgroundColor
-            buttonGrabber.classList.remove("toggleOn")//turn off grabber
-        }else{
-            setBackgroundColor(element.target);
-        }
+function setColoringEvent(){
+    divElements.forEach(e => {
+        e.addEventListener("mousedown",element => {
+            if(buttonGrabber.getAttribute("class")=="toggleOn"){
+                brushColor=e.style.backgroundColor
+                buttonGrabber.classList.remove("toggleOn")//turn off grabber
+            }else{
+                setBackgroundColor(element.target);
+            }
+        })
+        e.addEventListener("mouseover",element => {
+            if(toggleDragMouse==true){
+                setBackgroundColor(element.target);
+            }
+        })
     })
-    e.addEventListener("mouseover",element => {
-        if(toggleDragMouse==true){
-            setBackgroundColor(element.target);
-        }
-    })
-})
+
+}
 
 //set event listener for the whole document to check if mouse if being dragged
 document.addEventListener("mousedown",()=>{
@@ -230,3 +235,17 @@ buttonGrabber.addEventListener("click",()=>{
         buttonGrabber.classList.remove("toggleOn")//turn off grabber
     }
 })
+
+//get the value from the size input
+sizeInput.addEventListener("input",function(){
+    sizeInputText.textContent=`${sizeInput.value} x ${sizeInput.value}`
+    emptyCanvas()
+    createCanvas(sizeInput.value)
+    setColoringEvent();
+})
+
+//Default values when page is first loaded
+createCanvas(10);
+divElements.forEach(setBackgroundColor);
+brushColor="#000"
+setColoringEvent();

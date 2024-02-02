@@ -13,6 +13,7 @@ body{
     background-color: var(--color-black);
     display: flex;
     justify-content: center;
+    font-family: var(--font-roboto);
 }
 
 .view{
@@ -90,7 +91,19 @@ button{
     display: flex;
     flex-wrap: wrap;
 }
-
+#slider{
+    text-align: center;
+}
+#canvas-size{
+    height: 4px;
+    outline: none;
+    margin-bottom: 8px;
+}
+#size{
+    color: var(--color-violet);
+    font-size: 15px;
+    font-weight: 700;
+}
 /* Classes added by the script */
 
 .gridLines{
