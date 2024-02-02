@@ -114,8 +114,12 @@ brushColor="#000"
 //set event listener for each canvas element
 divElements.forEach(e => {
     e.addEventListener("mousedown",element => {
-        setBackgroundColor(element.target);
-        console.log(e.style.backgroundColor)
+        if(buttonGrabber.getAttribute("class")=="toggleOn"){
+            brushColor=e.style.backgroundColor
+            buttonGrabber.classList.remove("toggleOn")//turn off grabber
+        }else{
+            setBackgroundColor(element.target);
+        }
     })
     e.addEventListener("mouseover",element => {
         if(toggleDragMouse==true){
@@ -133,7 +137,6 @@ document.addEventListener("mouseup",()=>{
 })
 
 
-
 //get the value from the color picker
 colorPicker.addEventListener("change",function(){
     setNewBrushColor(colorPicker.value);//set brush color
@@ -141,6 +144,7 @@ colorPicker.addEventListener("change",function(){
     buttonRainbow.classList.remove("toggleOn")//turn off rainbow
     buttonLighten.classList.remove("toggleOn")//turn off lighten
     buttonShading.classList.remove("toggleOn")//turn off shading
+    buttonGrabber.classList.remove("toggleOn")//turn off grabber
 })
 
 //Button toggle grid lines
@@ -158,6 +162,7 @@ buttonClear.addEventListener("click",function(){
     buttonEraser.classList.remove("toggleOn")//turn off eraser
         buttonLighten.classList.remove("toggleOn")//turn off lighten
         buttonShading.classList.remove("toggleOn")//turn off darken
+        buttonGrabber.classList.remove("toggleOn")//turn off grabber
     setClear();
     setTimeout(()=>{
         buttonClear.classList.remove("toggleOn")//turn off clear
@@ -168,6 +173,7 @@ buttonClear.addEventListener("click",function(){
 buttonEraser.addEventListener("click",()=>{
     if(buttonEraser.getAttribute("class")!="toggleOn"){
         buttonEraser.classList.add("toggleOn")//turn on eraser
+        buttonGrabber.classList.remove("toggleOn")//turn off grabber
     }else{
         buttonEraser.classList.remove("toggleOn")//turn off eraser
     }
@@ -179,6 +185,8 @@ buttonRainbow.addEventListener("click",()=>{
         buttonRainbow.classList.add("toggleOn")//turn on rainbow
         buttonLighten.classList.remove("toggleOn")//turn off lighten
         buttonShading.classList.remove("toggleOn")//turn off darken
+        buttonEraser.classList.remove("toggleOn")//turn off eraser
+        buttonGrabber.classList.remove("toggleOn")//turn off grabber
     }else{
         buttonRainbow.classList.remove("toggleOn")//turn off rainbow
     }
@@ -191,6 +199,7 @@ buttonShading.addEventListener("click",()=>{
         buttonLighten.classList.remove("toggleOn")//turn off lighten
         buttonRainbow.classList.remove("toggleOn")//turn off rainbow
         buttonEraser.classList.remove("toggleOn")//turn off eraser
+        buttonGrabber.classList.remove("toggleOn")//turn off grabber
     }else{
         buttonShading.classList.remove("toggleOn")//turn off shading
     }
@@ -203,7 +212,21 @@ buttonLighten.addEventListener("click",()=>{
         buttonShading.classList.remove("toggleOn")//turn off shading
         buttonRainbow.classList.remove("toggleOn")//turn off rainbow
         buttonEraser.classList.remove("toggleOn")//turn off eraser
+        buttonGrabber.classList.remove("toggleOn")//turn off grabber
     }else{
         buttonLighten.classList.remove("toggleOn")//turn off lighten
+    }
+})
+
+//Button colour grabber
+buttonGrabber.addEventListener("click",()=>{
+    if(buttonGrabber.getAttribute("class")!="toggleOn"){
+        buttonGrabber.classList.add("toggleOn")//turn on grabber
+        buttonRainbow.classList.remove("toggleOn")//turn off rainbow
+        buttonEraser.classList.remove("toggleOn")//turn off eraser
+        buttonShading.classList.remove("toggleOn")//turn off shading
+        buttonLighten.classList.remove("toggleOn")//turn off lighten
+    }else{
+        buttonGrabber.classList.remove("toggleOn")//turn off grabber
     }
 })
