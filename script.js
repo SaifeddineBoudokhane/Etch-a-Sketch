@@ -15,6 +15,8 @@ let divElements; //the variable that holds an array of canvas' elements
 
 let toggleDragMouse= false; //check if mouse is being dragged
 
+let modeRainbow=false; //check if rainbow mode is on/off
+
 function createCanvas(size){
     let dimensions=400/size
     for(let i=0;i<(size*size);i++){
@@ -38,7 +40,11 @@ function setNewBrushColor(value){
 
 //set the background color of element
 function setBackgroundColor(element){
-    element.style.backgroundColor=`${brushColor}`;
+    if(modeRainbow==false){
+        element.style.backgroundColor=`${brushColor}`;
+    }else{
+        element.style.backgroundColor=`${randomColor()}`;
+    }
 }
 
 //Clear canvas
@@ -54,6 +60,13 @@ function setGridLines(){
     divElements.forEach(e=>{
         e.classList.toggle("gridLines")
     })
+}
+
+//return random color 
+function randomColor() {
+    // return "#" + Math.floor(Math.random()*16777215).toString(16);
+    // this returns fewer colors but they are all nice and bright
+    return `hsl(${Math.random() * 360}, 100%, 50%)`;
 }
 
 //set the default 
@@ -80,17 +93,14 @@ document.addEventListener("mouseup",()=>{
     toggleDragMouse=false;
 })
 
-divElements.forEach(e => {
-    e.addEventListener("mousedown",element=> {
-        setBackgroundColor(element.target);
-    })
-})
 
 
 //get the value from the color picker
 colorPicker.addEventListener("change",function(){
-    setNewBrushColor(colorPicker.value);
-    buttonEraser.classList.remove("toggleOn")
+    setNewBrushColor(colorPicker.value);//set brush color
+    buttonEraser.classList.remove("toggleOn")//turn off eraser
+    buttonRainbow.classList.remove("toggleOn")//turn off rainbow
+    modeRainbow=false;//turn off rainbow
 })
 
 //Button toggle grid lines
@@ -120,5 +130,16 @@ buttonEraser.addEventListener("click",()=>{
     }else{
         buttonEraser.classList.remove("toggleOn")
         setNewBrushColor(colorPicker.value)
+    }
+})
+
+//Button toggle Rainbow
+buttonRainbow.addEventListener("click",()=>{
+    if(buttonRainbow.getAttribute("class")!="toggleOn"){
+        buttonRainbow.classList.add("toggleOn")
+        modeRainbow=true;
+    }else{
+        buttonRainbow.classList.remove("toggleOn")
+        modeRainbow=false;
     }
 })
