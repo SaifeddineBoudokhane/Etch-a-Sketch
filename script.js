@@ -13,7 +13,7 @@ let brushColor="#fff"; //the variable that has the current color
 
 let divElements; //the variable that holds an array of canvas' elements
 
-let toggleDragMouse= false;
+let toggleDragMouse= false; //check if mouse is being dragged
 
 function createCanvas(size){
     let dimensions=400/size
@@ -72,6 +72,7 @@ divElements.forEach(e => {
     })
 })
 
+//set event listener for the whole document to check if mouse if being dragged
 document.addEventListener("mousedown",()=>{
     toggleDragMouse=true;
 })
@@ -89,15 +90,35 @@ divElements.forEach(e => {
 //get the value from the color picker
 colorPicker.addEventListener("change",function(){
     setNewBrushColor(colorPicker.value);
+    buttonEraser.classList.remove("toggleOn")
 })
 
 //Button toggle grid lines
-buttonLines.addEventListener("click",setGridLines);
+buttonLines.addEventListener("click",function(){
+    buttonLines.classList.toggle("toggleOn")
+    setGridLines();
+    setTimeout(()=>{
+        buttonLines.classList.toggle("toggleOn")
+    },"100")
+});
 
 //Button clear
-buttonClear.addEventListener("click",setClear)
+buttonClear.addEventListener("click",function(){
+    buttonClear.classList.toggle("toggleOn")
+    buttonEraser.classList.remove("toggleOn")
+    setClear();
+    setTimeout(()=>{
+        buttonClear.classList.toggle("toggleOn")
+    },"100")
+})
 
 //Button toggle eraser
 buttonEraser.addEventListener("click",()=>{
-    setNewBrushColor('#fff')
+    if(buttonEraser.getAttribute("class")!="toggleOn"){
+        buttonEraser.classList.add("toggleOn")
+        setNewBrushColor('#fff')
+    }else{
+        buttonEraser.classList.remove("toggleOn")
+        setNewBrushColor(colorPicker.value)
+    }
 })
