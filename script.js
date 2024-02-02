@@ -40,19 +40,21 @@ function setNewBrushColor(value){
 
 //set the background color of element
 function setBackgroundColor(element){
-    if(modeRainbow==false){
-        element.style.backgroundColor=`${brushColor}`;
-    }else{
+    if(buttonClear.getAttribute("class")=="toggleOn"||buttonEraser.getAttribute("class")=="toggleOn"){
+        element.style.backgroundColor=`#fff`;
+    }else if(modeRainbow==true){
         element.style.backgroundColor=`${randomColor()}`;
+    }else{
+        element.style.backgroundColor=`${brushColor}`;
     }
 }
 
 //Clear canvas
 function setClear(){
-    let oldBrushColor = brushColor;
-    brushColor="#fff"
+    // let oldBrushColor = brushColor;
+    // brushColor="#fff"
     divElements.forEach(setBackgroundColor);
-    brushColor=oldBrushColor
+    // brushColor=oldBrushColor
 }
 
 //Toggle the grid lines
@@ -114,11 +116,11 @@ buttonLines.addEventListener("click",function(){
 
 //Button clear
 buttonClear.addEventListener("click",function(){
-    buttonClear.classList.toggle("toggleOn")
+    buttonClear.classList.add("toggleOn")
     buttonEraser.classList.remove("toggleOn")
     setClear();
     setTimeout(()=>{
-        buttonClear.classList.toggle("toggleOn")
+        buttonClear.classList.remove("toggleOn")
     },"100")
 })
 
@@ -126,10 +128,8 @@ buttonClear.addEventListener("click",function(){
 buttonEraser.addEventListener("click",()=>{
     if(buttonEraser.getAttribute("class")!="toggleOn"){
         buttonEraser.classList.add("toggleOn")
-        setNewBrushColor('#fff')
     }else{
         buttonEraser.classList.remove("toggleOn")
-        setNewBrushColor(colorPicker.value)
     }
 })
 
